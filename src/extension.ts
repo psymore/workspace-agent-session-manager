@@ -72,10 +72,13 @@ const refreshAll = () => entries.forEach(refresh);
  * A terminal started new carries no session id: the agent creates one, and for Codex nothing in its files points
  * back at the process. The provider can name it from the terminal's own focus, so ask once per terminal. Without
  * it the row's close and command buttons, the click target and the delete guard would all miss a session we are
- * running ourselves.
+ * running ourselves. /clear or /resume in the terminal moves its process on to another session: Claude's pid record
+ * names the new one, else the old row would keep the terminal (and its close button) and the status bar its numbers.
  */
 function resolveLaunched() {
   for (const [t, i] of launched) {
+    const now = i.pid === undefined ? undefined : i.e.open?.find(s => s.pid === i.pid);
+    if (now && now.id !== i.sessionId) { i.sessionId = now.id; refresh(i.e); continue; }
     if (i.sessionId) continue;
     const ctx: ProviderContext = Object.create(pctx, { focus: { value: { pid: i.pid, cwd: i.cwd, startedAt: i.at } } });
     Promise.resolve().then(() => i.e.p.read(ctx)).then(snap => {

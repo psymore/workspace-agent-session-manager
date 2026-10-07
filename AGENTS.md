@@ -50,7 +50,8 @@ UI surfaces
   regexes in `package.json` menus.
 - **Terminals**: "new" / "resume" run the agent CLI directly as the terminal process (`shellPath` = exe, no shell
   quoting) with `cwd` = repo. `launched` maps our terminals to sessions (resumed id, or Claude's pid) so "close"
-  can only ever close terminals this extension started.
+  can only ever close terminals this extension started. `/clear` / `/resume` move a terminal's process to another
+  session: `resolveLaunched` re-reads Claude's id from its pid record; Codex terminals keep their first thread.
 - **Other terminals** (`termPids`, `hostTerminal`, `adoptTerminals`): `launched` is in memory, but terminals survive
   a window reload (the pty host keeps the process). A terminal whose own process id equals a live session's pid is
   one of ours (users run agents in a shell), so it is put back into `launched`. An agent typed into a shell is found

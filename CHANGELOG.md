@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.30.9
+## 0.30.10
 
 First Marketplace release.
 
@@ -8,7 +8,7 @@ First Marketplace release.
 - Usage view: the same numbers as bars, with one context row per open session.
 - Projects view: every agent's sessions grouped by repo, with new (agent, model, effort, attached files), resume, close, rename, archive, unarchive and delete. Sessions outside the workspace are listed under *Other folders*.
 - Rename any closed session from the Projects view (✎ on the row); open ones in a terminal through the agent's `/rename`.
-- The active terminal's session is highlighted in the Projects and Usage views. Sessions already running in one of the window's terminals (also after a window reload, or Claude Code typed into a shell) open that terminal instead of offering to resume them again.
+- The active terminal's session is highlighted in the Projects and Usage views. Sessions already running in one of the window's terminals (also after a window reload, or Claude Code typed into a shell) open that terminal instead of offering to resume them again. A Claude terminal follows `/clear` and `/resume` to its new session.
 - Sessions list with details and bulk delete.
 - Agent terminal toolbar: `/context`, `/usage`, `/compact`, `/model`, mode switch and the agent's slash-command menu.
 - Provider API for other extensions to add agents.

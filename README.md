@@ -134,7 +134,7 @@ While an agent terminal started from here is active, its toolbar gets buttons fo
 - Claude's 5h / weekly numbers stay fresh only with *Live Claude limits* and a Claude Code terminal session. Otherwise they come from the last reading (faded, `~`, or one you pasted from `/usage`) or show `—`.
 - The Claude Code panel serves the first workspace folder only. Use a terminal session or **⧉** for other repos.
 - Sessions open in the Claude panel or the Codex app can't be closed from here.
-- Codex reports no process id, so a Codex terminal is recognised only while it was started from here in this window (not after a window reload, not when typed into a shell).
+- Codex reports no process id, so a Codex terminal is recognised only while it was started from here in this window (not after a window reload, not when typed into a shell), and stays matched to its first session after `/new` or `/resume` inside it.
 - Listing reads every transcript, so the Projects view may take a moment with many hundreds of sessions.
 
 ## Adding an agent
