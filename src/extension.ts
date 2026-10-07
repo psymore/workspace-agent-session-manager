@@ -660,7 +660,13 @@ function launch(e: Entry, cwd: string | undefined, s?: SessionEntry, options?: L
   });
   const info: Launched = { e, sessionId: s?.id, cwd, at: Date.now() };
   launched.set(t, info);
-  void t.processId.then(pid => { info.pid = pid; refresh(e); });
+  void t.processId.then(pid => {
+    info.pid = pid;
+    // Started from the quick pick chain, focus went back to where the chain was opened (the Projects view) after
+    // the show() below, and keys meant for the agent moved the tree instead. Take it again once the agent is up.
+    if (vscode.window.activeTerminal === t) t.show();
+    refresh(e);
+  });
   t.show();
   syncAgentContext();
   reloadProjects();

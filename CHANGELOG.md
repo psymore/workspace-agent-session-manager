@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.30.10
+## 0.30.11
 
 First Marketplace release.
 

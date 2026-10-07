@@ -2,7 +2,7 @@
   "name": "workspace-agent-session-manager",
   "displayName": "Workspace Agent Session Manager",
   "description": "Claude Code and OpenAI Codex sessions of every workspace folder in one place (start, resume, rename, archive, delete), with their context, 5-hour and weekly usage. Local files only: no network, no telemetry.",
-  "version": "0.30.10",
+  "version": "0.30.11",
   "publisher": "egeozel",
   "license": "MIT",
   "icon": "images/icon.png",
