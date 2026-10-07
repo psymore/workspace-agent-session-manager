@@ -1,0 +1,588 @@
+{
+  "name": "workspace-agent-session-manager",
+  "displayName": "Workspace Agent Session Manager",
+  "description": "Claude Code and OpenAI Codex sessions of every workspace folder in one place (start, resume, rename, archive, delete), with their context, 5-hour and weekly usage. Local files only: no network, no telemetry.",
+  "version": "0.30.9",
+  "publisher": "egeozel",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1e2633",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/psymore/workspace-agent-session-manager"
+  },
+  "homepage": "https://github.com/psymore/workspace-agent-session-manager#readme",
+  "bugs": {
+    "url": "https://github.com/psymore/workspace-agent-session-manager/issues"
+  },
+  "keywords": [
+    "claude",
+    "claude code",
+    "anthropic",
+    "codex",
+    "openai",
+    "ai",
+    "agent",
+    "usage",
+    "rate limit",
+    "limits",
+    "quota",
+    "context window",
+    "tokens",
+    "status bar",
+    "sessions",
+    "session manager"
+  ],
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "AI",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "workspaceAgentSessions.refresh",
+        "title": "Refresh",
+        "category": "Agent Sessions",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "workspaceAgentSessions.sessionDetails",
+        "title": "Context Details",
+        "category": "Agent Sessions",
+        "icon": "$(info)"
+      },
+      {
+        "command": "workspaceAgentSessions.deleteSession",
+        "title": "Delete Session",
+        "category": "Agent Sessions",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "workspaceAgentSessions.deleteSessions",
+        "title": "Delete Several Sessions...",
+        "category": "Agent Sessions",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "workspaceAgentSessions.showSessions",
+        "title": "Show Sessions...",
+        "category": "Agent Sessions"
+      },
+      {
+        "command": "workspaceAgentSessions.menu",
+        "title": "Menu",
+        "category": "Agent Sessions"
+      },
+      {
+        "command": "workspaceAgentSessions.refreshProjects",
+        "title": "Refresh Projects",
+        "category": "Agent Sessions",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "workspaceAgentSessions.newSession",
+        "title": "New Session in This Repo...",
+        "category": "Agent Sessions",
+        "icon": "$(add)"
+      },
+      {
+        "command": "workspaceAgentSessions.newSessionMenu",
+        "title": "New Session in This Repo (choose agent)...",
+        "category": "Agent Sessions",
+        "icon": "$(list-selection)"
+      },
+      {
+        "command": "workspaceAgentSessions.startSession",
+        "title": "New Agent Session...",
+        "category": "Agent Sessions",
+        "icon": "$(add)"
+      },
+      {
+        "command": "workspaceAgentSessions.openInWindow",
+        "title": "Open Repo in New Window",
+        "category": "Agent Sessions",
+        "icon": "$(empty-window)"
+      },
+      {
+        "command": "workspaceAgentSessions.resumeSession",
+        "title": "Resume in Terminal",
+        "category": "Agent Sessions",
+        "icon": "$(play)"
+      },
+      {
+        "command": "workspaceAgentSessions.closeSession",
+        "title": "Close Session (its terminal)",
+        "category": "Agent Sessions",
+        "icon": "$(close)"
+      },
+      {
+        "command": "workspaceAgentSessions.archiveSession",
+        "title": "Archive Session",
+        "category": "Agent Sessions",
+        "icon": "$(archive)"
+      },
+      {
+        "command": "workspaceAgentSessions.unarchiveSession",
+        "title": "Unarchive Session",
+        "category": "Agent Sessions",
+        "icon": "$(discard)"
+      },
+      {
+        "command": "workspaceAgentSessions.agentCommands",
+        "title": "Agent Commands (/rename, /clear, /rewind...)",
+        "category": "Agent Sessions",
+        "icon": "$(kebab-vertical)"
+      },
+      {
+        "command": "workspaceAgentSessions.openPanel",
+        "title": "Open Panel",
+        "category": "Agent Sessions"
+      },
+      {
+        "command": "workspaceAgentSessions.cycleMode",
+        "title": "Cycle Agent Mode (Shift+Tab)",
+        "category": "Agent Sessions",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "workspaceAgentSessions.rowContext",
+        "title": "Context Usage (/context)",
+        "category": "Agent Sessions",
+        "icon": "$(pie-chart)"
+      },
+      {
+        "command": "workspaceAgentSessions.rowCompact",
+        "title": "Compact Conversation (/compact)",
+        "category": "Agent Sessions",
+        "icon": "$(fold)"
+      },
+      {
+        "command": "workspaceAgentSessions.rowModel",
+        "title": "Switch Model (/model)",
+        "category": "Agent Sessions",
+        "icon": "$(chip)"
+      },
+      {
+        "command": "workspaceAgentSessions.focusSession",
+        "title": "Show This Session's Terminal",
+        "category": "Agent Sessions",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "workspaceAgentSessions.quickContext",
+        "title": "Context Usage (/context)",
+        "category": "Agent Sessions",
+        "icon": "$(pie-chart)"
+      },
+      {
+        "command": "workspaceAgentSessions.quickUsage",
+        "title": "Plan Usage (/usage)",
+        "category": "Agent Sessions",
+        "icon": "$(dashboard)"
+      },
+      {
+        "command": "workspaceAgentSessions.quickCompact",
+        "title": "Compact Conversation (/compact)",
+        "category": "Agent Sessions",
+        "icon": "$(fold)"
+      },
+      {
+        "command": "workspaceAgentSessions.quickModel",
+        "title": "Switch Model (/model)",
+        "category": "Agent Sessions",
+        "icon": "$(chip)"
+      },
+      {
+        "command": "workspaceAgentSessions.claudeLiveLimits",
+        "title": "Live Claude Limits (via Claude Code Status Line)...",
+        "category": "Agent Sessions",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "workspaceAgentSessions.claudeLimitsFromUsage",
+        "title": "Claude Limits from /usage (Copy the Dialog)...",
+        "category": "Agent Sessions",
+        "icon": "$(clippy)"
+      },
+      {
+        "command": "workspaceAgentSessions.claudeLiveLimitsIsOn",
+        "title": "Live Claude Limits: On (click to turn off)...",
+        "category": "Agent Sessions",
+        "icon": {
+          "light": "images/pulse-on-light.svg",
+          "dark": "images/pulse-on-dark.svg"
+        }
+      },
+      {
+        "command": "workspaceAgentSessions.claudeLiveLimitsIsUnset",
+        "title": "Set Up Live Claude Limits (5h / weekly)...",
+        "category": "Agent Sessions",
+        "icon": {
+          "light": "images/pulse-unset-light.svg",
+          "dark": "images/pulse-unset-dark.svg"
+        }
+      },
+      {
+        "command": "workspaceAgentSessions.claudeLiveLimitsIsOff",
+        "title": "Live Claude Limits: Off (click to turn on)...",
+        "category": "Agent Sessions",
+        "icon": {
+          "light": "images/pulse-off-light.svg",
+          "dark": "images/pulse-off-dark.svg"
+        }
+      },
+      {
+        "command": "workspaceAgentSessions.setDefaultAgent",
+        "title": "Default Agent for +...",
+        "category": "Agent Sessions",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "workspaceAgentSessions.quickRename",
+        "title": "Rename Session (/rename)",
+        "category": "Agent Sessions",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "workspaceAgentSessions.rowRename",
+        "title": "Rename Session...",
+        "category": "Agent Sessions",
+        "icon": "$(edit)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "workspaceAgentSessions",
+          "title": "Agent Sessions",
+          "icon": "images/activity.svg"
+        }
+      ]
+    },
+    "views": {
+      "workspaceAgentSessions": [
+        {
+          "id": "workspaceAgentSessions.view",
+          "name": "Usage",
+          "icon": "images/activity.svg",
+          "type": "webview"
+        },
+        {
+          "id": "workspaceAgentSessions.projects",
+          "name": "Projects",
+          "icon": "images/activity.svg"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "workspaceAgentSessions.startSession",
+          "when": "view == workspaceAgentSessions.projects",
+          "group": "navigation@0"
+        },
+        {
+          "command": "workspaceAgentSessions.refresh",
+          "when": "view == workspaceAgentSessions.view",
+          "group": "navigation"
+        },
+        {
+          "command": "workspaceAgentSessions.refreshProjects",
+          "when": "view == workspaceAgentSessions.projects",
+          "group": "navigation"
+        },
+        {
+          "command": "workspaceAgentSessions.claudeLiveLimitsIsOn",
+          "when": "view == workspaceAgentSessions.view && workspaceAgentSessions.liveLimits == on",
+          "group": "navigation@1"
+        },
+        {
+          "command": "workspaceAgentSessions.claudeLiveLimitsIsUnset",
+          "when": "view == workspaceAgentSessions.view && workspaceAgentSessions.liveLimits == unset",
+          "group": "navigation@1"
+        },
+        {
+          "command": "workspaceAgentSessions.claudeLiveLimitsIsOff",
+          "when": "view == workspaceAgentSessions.view && workspaceAgentSessions.liveLimits == off",
+          "group": "navigation@1"
+        },
+        {
+          "command": "workspaceAgentSessions.quickContext",
+          "when": "view == terminal && workspaceAgentSessions.agentTerminal && workspaceAgentSessions.cmdContext",
+          "group": "navigation@50"
+        },
+        {
+          "command": "workspaceAgentSessions.quickUsage",
+          "when": "view == terminal && workspaceAgentSessions.agentTerminal && workspaceAgentSessions.cmdUsage",
+          "group": "navigation@51"
+        },
+        {
+          "command": "workspaceAgentSessions.quickCompact",
+          "when": "view == terminal && workspaceAgentSessions.agentTerminal && workspaceAgentSessions.cmdCompact",
+          "group": "navigation@52"
+        },
+        {
+          "command": "workspaceAgentSessions.quickModel",
+          "when": "view == terminal && workspaceAgentSessions.agentTerminal && workspaceAgentSessions.cmdModel",
+          "group": "navigation@53"
+        },
+        {
+          "command": "workspaceAgentSessions.cycleMode",
+          "when": "view == terminal && workspaceAgentSessions.agentTerminal",
+          "group": "navigation@54"
+        },
+        {
+          "command": "workspaceAgentSessions.agentCommands",
+          "when": "view == terminal && workspaceAgentSessions.agentTerminal",
+          "group": "navigation@55"
+        },
+        {
+          "command": "workspaceAgentSessions.deleteSessions",
+          "when": "view == workspaceAgentSessions.view",
+          "group": "navigation@2"
+        },
+        {
+          "command": "workspaceAgentSessions.setDefaultAgent",
+          "group": "config@1",
+          "when": "view == workspaceAgentSessions.projects"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "workspaceAgentSessions.newSession",
+          "when": "view == workspaceAgentSessions.projects && viewItem == repo",
+          "group": "inline@1"
+        },
+        {
+          "command": "workspaceAgentSessions.openInWindow",
+          "when": "view == workspaceAgentSessions.projects && viewItem == repo",
+          "group": "inline@2"
+        },
+        {
+          "command": "workspaceAgentSessions.resumeSession",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /\\.resume\\./",
+          "group": "inline@1"
+        },
+        {
+          "command": "workspaceAgentSessions.closeSession",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /\\.close\\./",
+          "group": "inline@4"
+        },
+        {
+          "command": "workspaceAgentSessions.archiveSession",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /\\.archive\\./",
+          "group": "inline@2"
+        },
+        {
+          "command": "workspaceAgentSessions.unarchiveSession",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /\\.unarchive\\./",
+          "group": "inline@2"
+        },
+        {
+          "command": "workspaceAgentSessions.deleteSession",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /\\.delete\\./",
+          "group": "inline@3"
+        },
+        {
+          "command": "workspaceAgentSessions.agentCommands",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /\\.close\\./",
+          "group": "session@2"
+        },
+        {
+          "command": "workspaceAgentSessions.rowContext",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /\\.ctx\\./",
+          "group": "inline@1"
+        },
+        {
+          "command": "workspaceAgentSessions.rowCompact",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /\\.compact\\./",
+          "group": "inline@2"
+        },
+        {
+          "command": "workspaceAgentSessions.rowModel",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /\\.model\\./",
+          "group": "inline@3"
+        },
+        {
+          "command": "workspaceAgentSessions.sessionDetails",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /^psession/",
+          "group": "session@1"
+        },
+        {
+          "command": "workspaceAgentSessions.newSessionMenu",
+          "when": "view == workspaceAgentSessions.projects && viewItem == repo",
+          "group": "repo@1"
+        },
+        {
+          "command": "workspaceAgentSessions.rowRename",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /\\.rename\\./",
+          "group": "inline@1.5"
+        },
+        {
+          "command": "workspaceAgentSessions.rowRename",
+          "group": "session@1",
+          "when": "view == workspaceAgentSessions.projects && viewItem =~ /\\.rename\\./"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "workspaceAgentSessions.claudeLiveLimitsIsOn",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.claudeLiveLimitsIsUnset",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.claudeLiveLimitsIsOff",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.quickContext",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.quickUsage",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.quickCompact",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.quickModel",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.sessionDetails",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.deleteSession",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.refreshProjects",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.newSession",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.openInWindow",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.resumeSession",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.closeSession",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.archiveSession",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.unarchiveSession",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.rowContext",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.rowCompact",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.rowModel",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.focusSession",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.newSessionMenu",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.quickRename",
+          "when": "false"
+        },
+        {
+          "command": "workspaceAgentSessions.rowRename",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Workspace Agent Session Manager",
+      "properties": {
+        "workspaceAgentSessions.claudeContextWindows": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          },
+          "default": {
+            "claude-fable-5": 1000000,
+            "claude-fable-5-1": 1000000,
+            "claude-haiku-4-5": 200000,
+            "claude-opus-4-6": 1000000,
+            "claude-opus-4-7": 1000000,
+            "claude-opus-4-8": 1000000,
+            "claude-opus-5": 1000000,
+            "claude-opus-5-5": 1000000,
+            "claude-sonnet-4-6": 1000000,
+            "claude-sonnet-5": 1000000,
+            "claude-sonnet-5-5": 1000000
+          },
+          "markdownDescription": "Context window size (tokens) per Claude model id prefix. Claude Code does not record this per turn, so models not listed here show `—` for context (unless the model id ends in `[1m]`). Defaults come from Claude Code's own `/usage` reports."
+        },
+        "workspaceAgentSessions.claudeLimitsMaxAgeMinutes": {
+          "type": "number",
+          "default": 60,
+          "minimum": 1,
+          "description": "Claude Code does not record 5h/weekly limits continuously. Older readings (from a /usage report or the status cache) are still shown, with a ~ and marked as possibly outdated, once they are older than this many minutes."
+        },
+        "workspaceAgentSessions.defaultAgent": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Agent id started directly by the **+** button on a repo in the Projects view, with that agent's own default model and effort (`claude`, `codex`, or the id of a registered provider). Empty asks which agent each time. The full menu stays on the row's right-click menu either way."
+        },
+        "workspaceAgentSessions.pollSeconds": {
+          "type": "number",
+          "default": 60,
+          "minimum": 10,
+          "description": "Fallback polling interval in seconds (file watching handles most updates)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('out', { recursive: true, force: true })\"",
+    "compile": "tsc -p .",
+    "watch": "tsc -watch -p .",
+    "vscode:prepublish": "npm run clean && npm run compile",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "~1.93.0",
+    "@vscode/vsce": "^3.0.0",
+    "typescript": "^5.4.0"
+  }
+}

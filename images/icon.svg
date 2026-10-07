@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Source of icon.png (render at 256x256). Same gauge as activity.svg: centre (64,70), r 38, needle at 40°. -->
+  <rect width="128" height="128" rx="28" fill="#1e2633"/>
+  <g fill="none" stroke-width="12" stroke-linecap="round">
+    <path d="M37.13 96.87A38 38 0 1 1 90.87 96.87" stroke="#3a4556"/>
+    <path d="M37.13 96.87A38 38 0 1 1 93.11 45.57" stroke="#4fd1a5"/>
+  </g>
+  <path d="M64 70L84.68 52.65" stroke="#e8edf3" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="64" cy="70" r="8" fill="#e8edf3"/>
+</svg>

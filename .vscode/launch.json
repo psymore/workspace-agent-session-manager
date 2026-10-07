@@ -1,0 +1,15 @@
+{
+  // F5: a second VS Code window running this extension straight from out/ (no package, no install, no version bump).
+  // In that window, Ctrl+R (Developer: Reload Window) picks up the latest build; tsc keeps rebuilding in watch mode.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "preLaunchTask": "npm: watch"
+    }
+  ]
+}
