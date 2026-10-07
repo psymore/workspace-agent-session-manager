@@ -12,3 +12,4 @@ CLAUDE.md
 **/*.map
 images/icon.svg
 .playwright-mcp/**
+images/screenshots/**

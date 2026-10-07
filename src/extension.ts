@@ -1067,6 +1067,13 @@ async function setDefaultAgent() {
   vscode.window.setStatusBarMessage(`Agent Sessions: + ${e ? `starts ${e.p.name}` : 'asks which agent'}`, 4000);
 }
 
+/** The Projects title says what + on a repo starts: a button can't show it (no text, no runtime icon), a view description can. */
+function showDefaultAgent() {
+  const e = entries.get(pctx.setting<string>('defaultAgent') ?? '');
+  const text = e?.p.terminal ? `+ ${e.p.name}` : undefined;
+  if (projectsView && projectsView.description !== text) projectsView.description = text;
+}
+
 function registerProjects(): vscode.Disposable[] {
   const act = (fn: (n: PSession) => void | Promise<void>) => async (n: PNode) => {
     if (n?.kind !== 'session') return;
@@ -1082,6 +1089,8 @@ function registerProjects(): vscode.Disposable[] {
     { dispose: () => clearTimeout(projectsTimer) },
     treeChanged.event(reloadProjects),
     projectsView = vscode.window.createTreeView('workspaceAgentSessions.projects', { treeDataProvider: projects }),
+    // Fires on every refresh, a settings change and a provider coming or going: all that can change the answer.
+    treeChanged.event(showDefaultAgent),
     projectsView.onDidChangeVisibility(({ visible }) => { if (visible) { highlightKey = undefined; syncHighlight(); } }),
     vscode.window.onDidChangeActiveTerminal(syncHighlight),
     vscode.window.onDidOpenTerminal(trackTerminal),

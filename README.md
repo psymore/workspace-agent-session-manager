@@ -6,10 +6,7 @@ Every AI coding agent session of your workspace in one place, grouped by repo, w
 - **Both agents, side by side.** Claude Code and Codex sessions in one tree, their limits in one view, following the terminal you are in.
 - **Nothing leaves your machine.** It reads the files the agents already keep on disk and runs their own CLIs. No network requests, no telemetry, no API keys, and it never reads your agent logins.
 
-```
-Claude  ctx 27%  |  5h 28%  |  wk 55%
-Codex   ctx 61%  |  5h 16%  |  wk 37%
-```
+![Usage and Projects views in the side bar, with the status bar's hover showing context, 5-hour and weekly bars](images/screenshots/overview.png)
 
 ## Features
 
@@ -38,11 +35,15 @@ Codex   ctx 61%  |  5h 16%  |  wk 37%
 
 **Hover** an item for the same bars as the Usage view, with the session's name, reset times and where the limits came from.
 
+![Hover on the Claude status bar item: context, 5h and week bars with reset times](images/screenshots/status-bar.png)
+
 The items sit at the **bottom-right of the status bar** (it must be visible: *View → Appearance → Status Bar*). Right-click the status bar to hide an agent.
 
 They follow the **active terminal**: with several agent terminals in one window (e.g. one per repo), switching terminals switches the numbers to that terminal's session. Terminals started from the Projects view are matched exactly: by the resumed session id, by the agent's process id (Claude), or by the terminal's start time (Codex, whose sessions carry no process id). For other terminals, the folder picks the newest session there. Without a matching session, the newest session of the workspace is shown, never one from another repo.
 
 Hover for reset times and data age. Click for the menu: open the panel, re-read local data, Claude plan usage, agent commands, the sessions lists, bulk delete.
+
+![The status bar menu](images/screenshots/menu.png)
 
 ## Live Claude limits
 
@@ -73,12 +74,16 @@ The **Agent Sessions** icon in the activity bar opens two views (drag them to th
 
 **Usage** shows 5h, week and context per agent, with reset times and where the limits came from. Click an agent for its sessions list. From two open sessions on, *Context* splits into one row per session, each with its name and its own bar; the active terminal's row is highlighted. Click a row to jump to its terminal, or to see its details when it has none. Title bar: refresh, *Live Claude limits*, delete several sessions.
 
+![Usage view: 5h, week and one context bar per open session, for Claude and Codex](images/screenshots/usage-view.png)
+
 ## Projects view
 
 The Claude Code panel only starts and lists sessions of the **first** workspace folder. The Projects view lists each workspace folder (with no folder open, each session's folder) with the sessions of every agent. Sessions started outside the workspace are listed under *Other folders*.
 
+![Projects view: Claude and Codex sessions grouped by repo, open ones highlighted](images/screenshots/projects-view.png)
+
 - **+** in the title bar: new session. Pick the agent, repo, model and effort; the *Attach files* button on each step adds files to the first message.
-- **+** on a repo: new session there. It starts the agent set in `workspaceAgentSessions.defaultAgent` at once (choose it from the title bar's **…** menu → *Default Agent for +*), or asks. Right-click the repo for the full menu, including the agent's own panel.
+- **+** on a repo: new session there. It starts the agent set in `workspaceAgentSessions.defaultAgent` at once, or asks. The view title says which (*Projects + Claude*); the robot button in the title bar changes it. Right-click the repo for the full menu, including the agent's own panel.
 - **⧉** on a repo: open the repo in its own window (for the agent's panel there).
 - Click a session: its terminal if it runs in one of this window's terminals, else resume it in a new terminal (archived sessions and ones open elsewhere show their details instead).
 - The session of the **active terminal** is highlighted, and selected as you switch terminals. Also for Claude Code started by hand in a shell, and for terminals from before a window reload.
@@ -90,9 +95,13 @@ The Claude Code panel only starts and lists sessions of the **first** workspace 
   - Codex: `codex archive` / `codex unarchive` (moves to / from `~/.codex/archived_sessions`).
   - Claude has no archive of its own: the transcript is moved to `~/.claude/archived-sessions/` and back. Until it is unarchived, Claude Code doesn't list it.
 
+![New session, one step at a time: agent, repo, model, effort](images/screenshots/new-session.png)
+
 ## Sessions list
 
 Click a status bar item → **Claude sessions... / Codex sessions...** (or *Agent Sessions: Show Sessions...*):
+
+![Claude sessions list with context use, state and folder per session](images/screenshots/sessions-list.png)
 
 - Opens with the **open** sessions and each one's context used:
   - Claude: sessions loaded in a running Claude Code process (e.g. an open panel tab), shown as `working` or `open`.

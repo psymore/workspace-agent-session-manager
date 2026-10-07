@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.30.12
+
+- Projects view: its title says what **+** on a repo starts (*+ Claude*), and the button to change it moved from the **…** menu to the title bar.
+- README: screenshots of the views, the status bar and the quick picks.
+
 ## 0.30.11
 
 First Marketplace release.
