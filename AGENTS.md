@@ -17,7 +17,7 @@ CLIs; no network requests, no telemetry. User-facing docs: [README.md](README.md
 | `src/util.ts` | Small fs/JSON/path helpers (`scanBackward` reads JSONL files from the end, `norm` for path comparisons, `pidAlive`, ...). |
 | `package.json` | `contributes`: commands, activity bar container + 2 views, menus (inline buttons via `when` clauses), settings. |
 | `CHANGELOG.md` | Release notes, shown on the Marketplace "Changelog" tab. One entry per published version. |
-| `images/` | `icon.svg` = source of `icon.png` (render at 256x256); `activity.svg` = the same gauge as a line icon, no `<mask>` (masks render grainy in the activity bar). `screenshots/` = README pictures, taken from made-up sessions (`CLAUDE_CONFIG_DIR` / `CODEX_HOME` on fake data, a separate `--user-data-dir`), never real ones; left out of the `.vsix`, the Marketplace loads them from GitHub. |
+| `images/` | `icon.svg` = source of `icon.png` (render at 256x256); `activity.svg` = the same gauge as a line icon, no `<mask>` (masks render grainy in the activity bar). `screenshots/` = README pictures, taken from made-up sessions (`CLAUDE_CONFIG_DIR` / `CODEX_HOME` on fake data, a separate `--user-data-dir`), never real ones; left out of the `.vsix`, the Marketplace loads them from GitHub. The maintainer's local `demo/start-demo.ps1` (git-ignored) opens that setup. |
 | `out/`, `*.vsix` | Build output (git-ignored). |
 
 ## Architecture
