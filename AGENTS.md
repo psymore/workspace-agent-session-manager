@@ -71,7 +71,8 @@ UI surfaces
 - Transcripts: `projects/<encoded cwd>/<uuid>.jsonl` + optional sibling folder `<uuid>/` (subagents, tool results).
   Encoded cwd = every non-alphanumeric char → `-`.
 - Open sessions: `sessions/<pid>.json` = `{ pid, sessionId, cwd, status: 'idle' | 'busy', ... }`, valid while the
-  pid is alive. "Open" = a Claude Code process (usually a panel tab) has it loaded. Not time-based.
+  pid is alive. "Open" = a Claude Code process (usually a panel tab) has it loaded. Not time-based. `/clear` rewrites
+  `sessionId` in place to the new session, same pid (seen in 2.1.292); the old transcript is then closed.
 - 5h / weekly limits are kept in memory only. Claude Code passes them (`rate_limits.five_hour|seven_day`:
   `used_percentage` 0-100, `resets_at` epoch s) to the `statusLine` command's stdin after each reply, documented at
   code.claude.com/docs/en/statusline. Only the terminal UI runs the status line, not the VS Code panel. On Windows the
@@ -148,14 +149,15 @@ Never experiment on the real `~/.claude` / `~/.codex`.
    upload the `.vsix` at https://marketplace.visualstudio.com/manage. Open VSX (Cursor, Windsurf, VSCodium):
    `npx ovsx publish <file>.vsix -p <token>`.
 
-## Open items (as of 0.6.0, 2026-10-05)
+## Open items (as of 0.30.10, 2026-10-07)
 
-Not yet verified inside VS Code (only `tsc` + node checks on copied data were run):
-- [ ] Projects view renders per workspace folder; inline buttons appear per the table in README.
-- [ ] **+** starts Claude / Codex in a terminal in the right repo; **▶** resumes the right session there.
-- [ ] **✕** appears for a session started from the view and closes its terminal (Claude matched by pid:
-      assumes `sessions/<pid>.json` pid == terminal `processId`, i.e. `claude.exe` is not a launcher).
-- [ ] Archive / unarchive / delete from the view on real (closed) sessions, both agents.
+Smoke-tested inside VS Code on Windows with the installed 0.30.10 `.vsix` (2026-10-07):
+- [x] Projects view renders per workspace folder; inline buttons appear per the table in README.
+- [x] **+** starts Claude in a terminal in the right repo; **▶** resumes the right session there.
+- [x] **✕** appears for a session started from the view. Claude is matched by pid: `sessions/<pid>.json` pid ==
+      terminal `processId` (`claude.exe` is not a launcher), and after `/clear` the ✕ moves to the new session.
+- [x] Archive / unarchive / delete from the view on a real (closed) session.
+- [ ] The same for Codex (+, ▶, archive / unarchive / delete): not recorded.
 
 Known limits, candidates for later:
 - Listing reads every transcript on each reload; with hundreds of sessions, cache per file by mtime.
